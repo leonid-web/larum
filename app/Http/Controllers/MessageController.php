@@ -90,7 +90,7 @@ class MessageController extends Controller
         $messege->save();
         return back();
     }
-
+//aa
     public function destroy(Message $message)
     {
         return $message->delete();
