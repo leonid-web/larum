@@ -19,8 +19,14 @@
                             </div>
                             <div class="card-body">
                                 @if(count($themes)>0)
+
+
                                     @foreach($themes as $theme)
+                                            @if($theme->status==1)
+
                                         @if($theme->events_id ==  $event->id)
+
+
                                             <div class="row justify-content-center ">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
@@ -44,9 +50,50 @@
 
                                                 </div>
                                             </div>
+
+
                                         @endif
+                                        @endif
+                                                @if($theme->status==3 )
+                                                    @foreach($theme_accesses as $theme_access)
+                                                    @if($theme->events_id ==  $event->id && $theme->id == $theme_access->theme_id && (((auth()->user()->id==$theme_access->user_id) || (Auth::user()->is_admin == 1 ) || (($event->manager) ===  Auth::user()->id))))
+
+
+
+                                                        <div class="row justify-content-center ">
+
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <ul class="list-group">
+                                                                        <a class="text-decoration-none"
+                                                                           href="{{ route('show_messages', ['themes_id' => $theme->id]) }}">
+                                                                            <li class="list-group-item list-group-item-action list-group-item-outline-secondary pointer">
+                                                                                <button type="button"
+                                                                                        class="btn btn-outline-secondary btn-circle">
+                                                                                    <i class="fa fa-comments"></i></button>
+                                                                                <strong> {{ $theme->name }}</strong>
+
+                                                                                <span
+                                                                                    class="badge badge-secondary badge-pill float-right">
+                                                                        {{ count($theme->messages) }}
+                                                                    </span>
+                                                                            </li>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                @break
+                                                    @endif
                                     @endforeach
+                                                @endif
+
+                                                @endforeach
                                 @endif
+
 {{--                                    Кнопка "Создать тему" досупна только менеджеру мероприятия или админу--}}
 
                                 @if(($event->manager) ===  Auth::user()->id || (Auth::user()->is_admin == 1 ))

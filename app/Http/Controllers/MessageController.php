@@ -36,7 +36,7 @@ class MessageController extends Controller
             return ($messages);
     }
 
-
+    //создание сообщения
     public function store(Request $request)
     {
         $users=User::all();
@@ -44,8 +44,9 @@ class MessageController extends Controller
         Message::create([
                 'user_id' => auth()->user()->id
             ] + $request->all());
-
+        //пагинация
         $messages = Theme::find($request->theme_id)->messages()->paginate(5);
+        //проверяем всех пользователей на условие и отправляем уведомление
         foreach ($users as $user){
             if ($user->id==$theme->owner_id){
                 $user->notify(new RepliedToThread($user));
@@ -54,7 +55,7 @@ class MessageController extends Controller
         return view('messages', ['messages' =>$messages]);
 
     }
-
+    //отображаем сообщение
     public function show(Message $message)
     {
         return view('showMessage', ['message' => $message]);
@@ -64,9 +65,9 @@ class MessageController extends Controller
     public function store_answer(Request $request, $id)
     {
 
-        $users=User::all();
-//        $id->addAnswer($request['body']);
-        $messages = Message::find($id); //Почему то без этого не работает
+        $users=User::all();//взяли всех пользователей
+        $messages = Message::find($id);//берем id сообщения
+        //создание ответа
         Answer::create(
             [
                 'body' => $request['body'],
@@ -75,6 +76,7 @@ class MessageController extends Controller
 
             ]
         );
+        //проверяем всех пользователей на условие и отправляем уведомление
         foreach ($users as $user){
             if ($user->id==$messages->user_id){
                 $user->notify(new AddAnswer($user));
@@ -82,15 +84,15 @@ class MessageController extends Controller
         }
         return redirect()->back();
     }
-
+    //изменение сообщения
     public function update( $id, Request $request)
     {
-        $messege = Message::find($id);
-        $messege ->fill($request->all());
-        $messege->save();
+        $message = Message::find($id);
+        $message ->fill($request->all());
+        $message->save();
         return back();
     }
-//aa
+    //удаление
     public function destroy(Message $message)
     {
         return $message->delete();

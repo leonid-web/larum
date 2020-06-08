@@ -56,7 +56,7 @@ Route::post('themes/{id}/answer', 'MessageController@store_answer')->name('store
 Route::patch('themes/messages/{id}/update', 'MessageController@update')->name('update')->middleware('auth'); // Редактирование сообщения
 
 Route::Resource('messages', 'MessageController');
-
+//Читает уведомления
 Route::get('/markAsRead',function(){
     auth()->user()->unreadNotifications->markAsRead();
 });

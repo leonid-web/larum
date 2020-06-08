@@ -40,4 +40,7 @@ class User extends Authenticatable
     {
         return $this->is_admin;
     }
+    public function theme_accesses() {
+        return $this->hasMany(theme_access::class);
+    }
 }

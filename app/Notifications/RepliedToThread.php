@@ -30,12 +30,13 @@ class RepliedToThread extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+    //уведомления работают через бд
     public function via($notifiable)
     {
         return ['database'];
     }
 
-
+//чем заполняется бд
     public function toDatabase($notifiable)
     {
 

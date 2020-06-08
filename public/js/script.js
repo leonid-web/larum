@@ -77,25 +77,25 @@ $(document).ready(function () {
         $(this).find('#add_theme_form').attr('action', 'events/' + id + '/themes'); //устанавливаем для аттрибута action новое значение
     });
 
-// при открытии модального окна редактирования сообщения
-    $('#modal_04').on('show.bs.modal', function (message) {
-        // получить кнопку, которая его открыло
-        let button = $(message.relatedTarget);
-        // извлечь информацию из атрибута data-content
-        let content = button.data('content');
-        let id = content.id;
-        // let old_name = content.name;
-        // let old_date = content.date;
-        let old_message = content.message;
-
-        console.log(content);
-
-        console.log(old_message);
-
-        $(this).find('#edit_message_form').attr('action',   'themes/messages/'+ id + '/update');
-        $(this).find('#message').val(old_message);
-        // $(this).find('#date').val(old_date);
-    });
+// // при открытии модального окна редактирования сообщения
+//     $('#modal_04').on('show.bs.modal', function (message) {
+//         // получить кнопку, которая его открыло
+//         let button = $(message.relatedTarget);
+//         // извлечь информацию из атрибута data-content
+//         let content = button.data('content');
+//         let id = content.id;
+//         // let old_name = content.name;
+//         // let old_date = content.date;
+//         let old_message = content.message;
+//
+//         console.log(content);
+//
+//         console.log(old_message);
+//
+//         $(this).find('#edit_message_form').attr('action',   'themes/messages/'+ id + '/update');
+//         $(this).find('#message').val(old_message);
+//         // $(this).find('#date').val(old_date);
+//     });
 
 //Добавление нового message
    $('#btnAddMessage').click(function () {
@@ -193,7 +193,7 @@ $(document).on('show.bs.modal', '#URLForMessage', function (event) {
 // });
 
 
-
+//Читает уведомления
 function markNotificationAsRead(notificationCount) {
     if(notificationCount !=='0'){
         $.get('/markAsRead');

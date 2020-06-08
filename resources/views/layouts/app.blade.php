@@ -57,7 +57,7 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="fa fa-bell"></i><span class="badge">{{count(auth()->user()->unreadNotifications)}}</span>
                                 </a>
-
+{{--                                уведомления--}}
                                 <ul class="dropdown-menu" role="menu">
 
                                         @foreach(auth()->user()->unreadNotifications as $notification)

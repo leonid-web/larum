@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="post" class="form-horizontal" id="edit_message_form">
+                <form action="{{route('update', ['id' =>$message->id])}}" method="post" class="form-horizontal" id="edit_message_form">
                     @csrf
                     @method('PATCH')
                     <div class="form-group row">

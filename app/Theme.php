@@ -25,5 +25,7 @@ class Theme extends Model
     {
         return $this->belongsTo(Events::class);
     }
-
+    public function theme_accesses() {
+        return $this->hasMany(theme_access::class);
+    }
 }

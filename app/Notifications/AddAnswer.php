@@ -27,6 +27,7 @@ class AddAnswer extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+    //уведомления работают через бд
     public function via($notifiable)
     {
         return ['database'];
@@ -38,13 +39,7 @@ class AddAnswer extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
+
 
     /**
      * Get the array representation of the notification.
@@ -52,11 +47,18 @@ class AddAnswer extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    //чем заполняется бд
+    public function toDatabase($notifiable)
     {
         return [
             'event'=>$notifiable,
             'nat'=>'Вам ответили на ваше сообщение'
+        ];
+    }
+    public function toArray($notifiable)
+    {
+        return [
+            //
         ];
     }
 }

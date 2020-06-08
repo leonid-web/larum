@@ -13,7 +13,7 @@ class CreateThemeAccessTable extends Migration
      */
     public function up()
     {
-        Schema::create('theme_access', function (Blueprint $table) {
+        Schema::create('theme_accesses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('theme_id');
             $table->unsignedBigInteger('user_id');
@@ -31,6 +31,6 @@ class CreateThemeAccessTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('theme_access');
+        Schema::dropIfExists('theme_accesses');
     }
 }

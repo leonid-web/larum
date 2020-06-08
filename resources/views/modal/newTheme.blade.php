@@ -64,7 +64,7 @@
                                         </td>
                                         <td>
                                             <div class="form-check">
-                                                <input type="checkbox" class="form-check-input access" checked
+                                                <input type="checkbox" name="user_id[]" value="{{$user->id}}" class="form-check-input access" checked
                                                        @if($user->id == Auth::user()->id || $user->is_admin == 1 )
                                                        disabled {{-- Запрет на снятие чекбокса для владельца темы и админа--}}
                                                     @endif

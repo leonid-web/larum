@@ -19,20 +19,20 @@ class AdminController extends Controller
         //      $events = DB::table('events')->get(); //Это второй способ обращения к базе данных. В этом случае добавляем: use Illuminate\Support\Facades\DB;
         return view('admin.index', ['events' => $events, 'users' => $users ]);
     }
-
+    //создаем событие
     public function store(Request $request)
     {
         Events::create($request->all());
         return redirect()->back();
 
     }
-
+    //удаление
     public function destroy($id)
     {
         Events::destroy($id);
         return back();
     }
-
+    //изменение всех сразу
     public function update_all(Request $request)
     {
         $users=User::all();
@@ -40,8 +40,15 @@ class AdminController extends Controller
         foreach ($events as $event) {
             if ($request->has($event->id)) {
                 $data = Events::find($event->id);
+                //проверяем всех пользователей на условие и отправляем уведомление
+                foreach ($users as $user){
+                    if ($user->id==$data->manager){
+                        $user->notify(new DelMan($user));
+                    }
+                }
                 $data->manager = $request->input($event->id);
                 $data->save();
+                //проверяем всех пользователей на условие и отправляем уведомление
                 foreach ($users as $user){
                     if ($user->id==$data->manager){
                     $user->notify(new AddMan($user));
@@ -57,6 +64,7 @@ class AdminController extends Controller
     {
         $users=User::all();
         $event = Events::find($id);
+        //проверяем всех пользователей на условие и отправляем уведомление
         foreach ($users as $user){
             if ($user->id==$event->manager){
                 $user->notify(new DelMan($user));
@@ -64,6 +72,7 @@ class AdminController extends Controller
         }
         $event ->fill($request->all());
         $event->save();
+        //проверяем всех пользователей на условие и отправляем уведомление
         foreach ($users as $user){
             if ($user->id==$event->manager){
                 $user->notify(new AddMan($user));
